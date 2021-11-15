@@ -43,6 +43,8 @@ export function isNumberStr(str: string) {
 
 export const exportDefault = 'export default '
 
+export const vueImportStgr = 'import { ref } from "vue"'
+
 // 首字母大小
 export function titleCase(str: string) {
   return str.replace(/( |^)[a-z]/g, L => L.toUpperCase())

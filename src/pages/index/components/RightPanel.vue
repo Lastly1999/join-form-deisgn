@@ -287,15 +287,15 @@ const addReg = () => {
       <el-tab-pane label="组件属性" name="field" />
       <el-tab-pane label="表单属性" name="form" />
     </el-tabs>
-    <div class="field-box">
+    <div class="field-box" >
       <el-scrollbar class="right-scrollbar">
         <!-- 组件属性 -->
-        <el-form v-show="currentTab === 'field' && showField" size="small" label-width="90px">
+        <el-form v-if="showField" v-show="currentTab === 'field' && showField" size="small" label-width="90px">
           <el-form-item v-if="activeData.__config__.changeTag" label="组件类型">
             <el-select v-model="activeData.__config__.tagIcon" placeholder="请选择组件类型" :style="{ width: '100%' }" @change="tagChange">
               <el-option-group v-for="group in tagList" :key="group.label" :label="group.label">
                 <el-option v-for="item in group.options" :key="item.__config__.label" :label="item.__config__.label" :value="item.__config__.tagIcon">
-                  <svg-icon class="node-icon" :icon-class="item.__config__.tagIcon" />
+                  <!-- <svg-icon class="node-icon" :icon-class="item.__config__.tagIcon" /> -->
                   <span>{{ item.__config__.label }}</span>
                 </el-option>
               </el-option-group>
@@ -660,8 +660,8 @@ const addReg = () => {
             <el-tree :data="[activeData.__config__]" :props="layoutTreeProps" node-key="renderKey" default-expand-all draggable>
               <span slot-scope="{ node, data }:any">
                 <span class="node-label">
-                  <svg-icon class="node-icon" :icon-class="data.__config__ ? data.__config__.tagIcon : data.tagIcon" />
-                  {{ node.label }}
+                  <!-- <svg-icon class="node-icon" :icon-class="data.__config__ ? data.__config__.tagIcon : data.tagIcon" />
+                  {{ node.label }} -->
                 </span>
               </span>
             </el-tree>
@@ -733,6 +733,6 @@ const addReg = () => {
     <icons-dialog :visible.sync="iconsVisible" :current="activeData[currentIconModel]" @select="setIcon" />-->
   </div>
 </template>
-<style lang='scss'>
+<style lang='scss' scoped>
 @import "./rightPanel.scss";
 </style>

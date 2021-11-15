@@ -1,10 +1,10 @@
-$selectedColor: #f6f7ff;
+$selectedColor: #9bc9f7;
 $lighterBlue: #409eff;
 
 .container {
-    position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
 }
 
 .components-list {
@@ -33,6 +33,7 @@ $lighterBlue: #409eff;
 
 .components-body {
     padding: 8px 10px;
+    color: #fff;
     background: $selectedColor;
     font-size: 12px;
     cursor: move;
@@ -42,21 +43,18 @@ $lighterBlue: #409eff;
         color: #777;
         font-size: 15px;
     }
-    &:hover {
-        border: 1px dashed #787be8;
-        color: #787be8;
-        .svg-icon {
-            color: #787be8;
-        }
-    }
+    // &:hover {
+    //     border: 1px dashed #787be8;
+    //     color: #787be8;
+    //     .svg-icon {
+    //         color: #787be8;
+    //     }
+    // }
 }
 
 .left-board {
-    width: 260px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100vh;
+    width: 300px;
+    height: 100%;
 }
 .left-scrollbar {
     height: calc(100vh - 42px);
@@ -69,11 +67,15 @@ $lighterBlue: #409eff;
     border-left: 1px solid #f1e8e8;
     border-right: 1px solid #f1e8e8;
     box-sizing: border-box;
+    .el-scrollbar__view {
+        height: 100%;
+        .el-form {
+            height: 100%;
+        }
+    }
 }
 .center-board {
-    height: 100vh;
-    width: auto;
-    margin: 0 350px 0 260px;
+    flex: 1;
     box-sizing: border-box;
 }
 .empty-info {
@@ -191,6 +193,9 @@ $lighterBlue: #409eff;
     }
     .el-form-item {
         padding: 12px 10px;
+    }
+    .el-form-item__content {
+        display: inline-flex;
     }
 }
 .drawing-row-item {

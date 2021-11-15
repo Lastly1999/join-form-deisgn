@@ -1,4 +1,4 @@
-import { exportDefault, titleCase, deepClone } from '../../utils/index'
+import { exportDefault, titleCase, deepClone, vueImportStgr } from '../../utils/index'
 import ruleTrigger from './rule'
 
 const units = {
@@ -238,10 +238,12 @@ function buildOptionMethod(methodName: string, model: string, methodList: string
 }
 
 // js整体拼接
-function buildexport(conf: { formModel: any; formRules: any }, type: string | number, data: string, rules: string, selectOptions: string, uploadVar: string, props: string, methods: string, created: string) {
-  const str = `import {ref} from "vue"
+function buildexport(conf: { formRef: string, formModel: any; formRules: any }, type: string | number, data: string, rules: string, selectOptions: string, uploadVar: string, props: string, methods: string, created: string) {
+  const str = `${vueImportStgr}
   ${exportDefault}{
   setup () {
+
+    const ${conf.formRef} = ref(null)
 
     const ${conf.formModel} = ref({
       ${data}

@@ -26,7 +26,7 @@ import loadBeautifier from '../../utils/loadBeautifier'
 import { inputComponents, selectComponents, layoutComponents, formConf } from "../../components/generator/formConfig"
 
 // 默认值
-import darwDefault from "../../components/generator/darwDefault"
+// import darwDefault from "../../components/generator/darwDefault"
 
 const leftComponents = [
   {
@@ -36,29 +36,31 @@ const leftComponents = [
   {
     title: '选择型组件',
     list: selectComponents
-  },
-  {
-    title: '布局型组件',
-    list: layoutComponents
   }
+  // ,
+  // {
+  //   title: '布局型组件',
+  //   list: layoutComponents
+  // }
 ]
 
-const drawingList: any = reactive(darwDefault)
+const drawingList: any = reactive([])
 
-const activeId = ref((darwDefault[0] as any).formId)
+const activeId = ref(([]))
 
-const activeData = ref(darwDefault[0])
+const activeData = ref([])
 
 
 const onEnd = (obj: any) => {
   if (obj.to !== obj.form) {
     console.log(true)
   }
-  console.log(drawingList)
 }
 
 const cloneComponent = (data: any) => {
-  return data
+  activeData.value = data
+  const copyData = deepClone(data)
+  return copyData
 }
 
 const activeFormItem = (currentItem: any) => {
@@ -124,7 +126,6 @@ const download = () => {
   showFileName.value = true
   operationType.value = 'download'
   const codeStr = generateCode()
-  console.log(codeStr)
   const blob = new Blob([codeStr], { type: 'text/plain;charset=utf-8' })
   saveAs(blob, new Date().getTime() + '.vue')
 }
@@ -158,12 +159,6 @@ const generateCode = () => {
   return beautifier.html(html + script + css, beautifierConf.html)
 }
 
-// const addComponent = (item: any) => {
-//   const clone = cloneComponent(item)
-//   console.log(clone)
-// }
-
-
 </script>
 
 <template>
@@ -193,6 +188,7 @@ const generateCode = () => {
             </Draggable>
           </div>
         </div>
+        <div></div>
       </el-scrollbar>
     </div>
     <!-- 中间表单设计区域 -->
@@ -207,13 +203,10 @@ const generateCode = () => {
       <el-scrollbar class="center-scrollbar">
         <el-form :label-position="formConf.labelPosition" :disabled="formConf.disabled" :label-width="formConf.labelWidth + 'px'">
           <Draggable class="drawing-board" :list="drawingList" :animation="340" group="componentsGroup" item-key="index">
-            <!-- 设计器 -->
-            <el-row>
-              <!-- 渲染器 -->
-              <FormBuilder :options="drawingList" @currentItem="activeFormItem" />
-            </el-row>
+            <!-- 渲染器 -->
+            <FormBuilder :options="drawingList" @currentItem="activeFormItem" />
           </Draggable>
-          <div v-show="!drawingList.length" class="empty-info">从左侧拖入或点选组件进行表单设计</div>
+          <div v-if="drawingList.length == 0" class="empty-info">从左侧拖入或点选组件进行表单设计</div>
         </el-form>
       </el-scrollbar>
     </div>

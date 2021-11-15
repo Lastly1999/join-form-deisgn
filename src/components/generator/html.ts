@@ -16,9 +16,7 @@ export function dialogWrapper(str: string) {
 
 export function vueTemplate(str: string) {
   return `<template>
-    <div>
       ${str}
-    </div>
   </template>`
 }
 
@@ -44,11 +42,6 @@ function buildFormTemplate(scheme: any, child: any, type: any) {
       ${child}
       ${buildFromBtns(scheme, type)}
     </el-form>`
-  if (someSpanIsNot24) {
-    str = `<el-row :gutter="${scheme.gutter}">
-        ${str}
-      </el-row>`
-  }
   return str
 }
 
@@ -93,21 +86,20 @@ const layouts = {
     const required = !(ruleTrigger as any)[config.tag] && config.required ? 'required' : ''
     const tagDom = (tags as any)[config.tag] ? (tags as any)[config.tag](scheme) : null
     let str = `<el-form-item ${labelWidth} ${label} prop="${scheme.__vModel__}" ${required}>
-        ${tagDom}
+        ${colWrapper(scheme, tagDom)}
       </el-form-item>`
-    str = colWrapper(scheme, str)
     return str
   },
   rowFormItem(scheme: any) {
     const config = scheme.__config__
-    const type = scheme.type === 'default' ? '' : `type="${scheme.type}"`
-    const justify = scheme.type === 'default' ? '' : `justify="${scheme.justify}"`
-    const align = scheme.type === 'default' ? '' : `align="${scheme.align}"`
-    const gutter = scheme.gutter ? `:gutter="${scheme.gutter}"` : ''
+    // const type = scheme.type === 'default' ? '' : `type="${scheme.type}"`
+    // const justify = scheme.type === 'default' ? '' : `justify="${scheme.justify}"`
+    // const align = scheme.type === 'default' ? '' : `align="${scheme.align}"`
+    // const gutter = scheme.gutter ? `:gutter="${scheme.gutter}"` : ''
     const children = config.children.map((el: any) => (layouts as any)[el.__config__.layout](el))
-    let str = `<el-row ${type} ${justify} ${align} ${gutter}>
+    let str = `
       ${children.join('\n')}
-    </el-row>`
+    `
     str = colWrapper(scheme, str)
     return str
   }

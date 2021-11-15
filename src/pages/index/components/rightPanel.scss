@@ -1,17 +1,18 @@
 .right-board {
-    width: 350px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding-top: 3px;
+    width: 370px;
     .field-box {
+        box-sizing: border-box;
         position: relative;
-        height: calc(100vh - 42px);
+        height: calc(100vh - 65px);
         box-sizing: border-box;
         overflow: hidden;
     }
     .el-scrollbar {
         height: 100%;
+        .el-form {
+            padding: 10px;
+            box-sizing: border-box;
+        }
     }
 }
 .select-item {
@@ -70,4 +71,8 @@
 }
 .node-icon {
     color: #bebfc3;
+}
+
+.center-tabs {
+    padding-left: 10px;
 }

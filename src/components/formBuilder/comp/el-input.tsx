@@ -12,7 +12,7 @@ const elInput = defineComponent({
   setup(props, { emit }) {
 
     const change = (val: string) => {
-      props.conf.defaultVal = val
+      props.conf.defaultValue = val
       emit('update:conf')
     }
 
@@ -29,7 +29,8 @@ const elInput = defineComponent({
         style={{ width: props.conf.style.width }}
         type={isPassWord}
         placeholder={props.conf.placeholder}
-        modelValue={props.conf.defaultVal}
+        modelValue={props.conf.defaultValue}
+        clearable={props.conf.clearable}
         onInput={change}
       ></ElInput>
     )

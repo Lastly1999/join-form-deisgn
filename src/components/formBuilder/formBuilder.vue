@@ -15,13 +15,19 @@ const currentItem = (item: any) => {
   emit('currentItem', item)
 }
 
-
 </script>
 <template>
-  <el-col v-for="item in options" :span="item.__config__.span">
-    <el-form-item :label="item.__config__.label" label-width="100px" @click="currentItem(item)">
+  <el-form-item
+    v-for="(item,index) in options"
+    :key="index"
+    class="drawing-item active-from-item"
+    :label="item.__config__.label"
+    :label-width="item.__config__.labelWidth"
+    @click="currentItem(item)"
+  >
+    <el-col :span="item.__config__.span">
       <ElInput v-if="item.__config__.tag === 'el-input'" :conf="item" />
-      <ElInputNumber :modelValue="item.defaultVal" v-if="item.__config__.tag === 'el-input-number'" :conf="item" />
-    </el-form-item>
-  </el-col>
+      <ElInputNumber v-if="item.__config__.tag === 'el-input-number'" :modelValue="item.defaultVal" :conf="item" />
+    </el-col>
+  </el-form-item>
 </template>
