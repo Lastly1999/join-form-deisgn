@@ -510,7 +510,7 @@ export const selectComponents = [
   }
 ]
 
-// 布局型组件 【左面板】
+// // 布局型组件 【左面板】
 export const layoutComponents = [
   {
     __config__: {

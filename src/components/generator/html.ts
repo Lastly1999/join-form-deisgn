@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import ruleTrigger from './rule'
 
 let confGlobal: any

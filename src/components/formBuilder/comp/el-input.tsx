@@ -12,7 +12,7 @@ const elInput = defineComponent({
   setup(props, { emit }) {
 
     const change = (val: string) => {
-      props.conf.defaultValue = val
+      props.conf.__config__.defaultValue = val
       emit('update:conf')
     }
 
@@ -23,13 +23,20 @@ const elInput = defineComponent({
   },
   render() {
     const { props, change } = this
-    const isPassWord = props.conf['show-password'] ? 'passWord' : ''
+    const inputType = props.conf['show-password'] ? 'passWord' : 'text'
+    const isShowWordLimit = props.conf["show-word-limit"]
+    const isReadonly = props.conf["readonly"]
+    const isDisabled = props.conf["disabled"]
+
     return (
       <ElInput
         style={{ width: props.conf.style.width }}
-        type={isPassWord}
+        readonly={isReadonly}
+        type={inputType}
+        disabled={isDisabled}
         placeholder={props.conf.placeholder}
-        modelValue={props.conf.defaultValue}
+        modelValue={props.conf.__config__.defaultValue}
+        show-word-limit={isShowWordLimit}
         clearable={props.conf.clearable}
         onInput={change}
       ></ElInput>

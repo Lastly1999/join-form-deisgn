@@ -262,7 +262,7 @@ const colorFormatChange = (val: any) => {
 }
 
 
-const multipleChange = (val: string) => {
+const multipleChange = (val: Event) => {
   props.activeData.__config__.defaultValue = val ? [] : ''
 }
 
@@ -287,7 +287,7 @@ const addReg = () => {
       <el-tab-pane label="组件属性" name="field" />
       <el-tab-pane label="表单属性" name="form" />
     </el-tabs>
-    <div class="field-box" >
+    <div class="field-box">
       <el-scrollbar class="right-scrollbar">
         <!-- 组件属性 -->
         <el-form v-if="showField" v-show="currentTab === 'field' && showField" size="small" label-width="90px">
@@ -348,13 +348,13 @@ const addReg = () => {
             <el-input v-model="activeData.style.width" placeholder="请输入组件宽度" clearable />
           </el-form-item>
           <el-form-item v-if="activeData.__vModel__ !== undefined" label="默认值">
-            <el-input :value="setDefaultValue(activeData.__config__.defaultValue)" placeholder="请输入默认值" @input="onDefaultValueInput" />
+            <el-input :modelValue="setDefaultValue(activeData.__config__.defaultValue)" placeholder="请输入默认值" @input="onDefaultValueInput" />
           </el-form-item>
           <el-form-item v-if="activeData.__config__.tag === 'el-checkbox-group'" label="至少应选">
-            <el-input-number :value="activeData.min" :min="0" placeholder="至少应选" @input="activeData.min = $event ? $event : undefined" />
+            <el-input-number :modelValue="activeData.min" :min="0" placeholder="至少应选" @input="activeData.min = $event ? $event : undefined" />
           </el-form-item>
           <el-form-item v-if="activeData.__config__.tag === 'el-checkbox-group'" label="最多可选">
-            <el-input-number :value="activeData.max" :min="0" placeholder="最多可选" @input="activeData.max = $event ? $event : undefined" />
+            <el-input-number :modelValue="activeData.max" :min="0" placeholder="最多可选" @input="activeData.max = $event ? $event : undefined" />
           </el-form-item>
           <el-form-item v-if="activeData.__slot__ && activeData.__slot__.prepend !== undefined" label="前缀">
             <el-input v-model="activeData.__slot__.prepend" placeholder="请输入前缀" />
@@ -407,11 +407,11 @@ const addReg = () => {
               <el-radio-button label="right">右侧</el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if="activeData.maxlength !== undefined" label="最多输入">
+          <!-- <el-form-item v-if="activeData.maxlength !== undefined" label="最多输入">
             <el-input v-model="activeData.maxlength" placeholder="请输入字符长度">
               <template slot="append">个字符</template>
             </el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item v-if="activeData['active-text'] !== undefined" label="开启提示">
             <el-input v-model="activeData['active-text']" placeholder="请输入开启提示" />
           </el-form-item>
@@ -419,10 +419,10 @@ const addReg = () => {
             <el-input v-model="activeData['inactive-text']" placeholder="请输入关闭提示" />
           </el-form-item>
           <el-form-item v-if="activeData['active-value'] !== undefined" label="开启值">
-            <el-input :value="setDefaultValue(activeData['active-value'])" placeholder="请输入开启值" @input="onSwitchValueInput($event, 'active-value')" />
+            <el-input :modelValue="setDefaultValue(activeData['active-value'])" placeholder="请输入开启值" @input="onSwitchValueInput($event, 'active-value')" />
           </el-form-item>
           <el-form-item v-if="activeData['inactive-value'] !== undefined" label="关闭值">
-            <el-input :value="setDefaultValue(activeData['inactive-value'])" placeholder="请输入关闭值" @input="onSwitchValueInput($event, 'inactive-value')" />
+            <el-input :modelValue="setDefaultValue(activeData['inactive-value'])" placeholder="请输入关闭值" @input="onSwitchValueInput($event, 'inactive-value')" />
           </el-form-item>
           <el-form-item v-if="activeData.type !== undefined && 'el-date-picker' === activeData.__config__.tag" label="时间类型">
             <el-select v-model="activeData.type" placeholder="请选择时间类型" :style="{ width: '100%' }" @change="dateTypeChange">
@@ -565,10 +565,10 @@ const addReg = () => {
             <el-color-picker v-model="activeData['inactive-color']" />
           </el-form-item>
 
-          <el-form-item v-if="activeData.__config__.showLabel !== undefined
+          <!-- <el-form-item v-if="activeData.__config__.showLabel !== undefined
           && activeData.__config__.labelWidth !== undefined" label="显示标签">
             <el-switch v-model="activeData.__config__.showLabel" />
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item v-if="activeData.branding !== undefined" label="品牌烙印">
             <el-switch v-model="activeData.branding" @input="changeRenderKey" />
           </el-form-item>
@@ -609,9 +609,9 @@ const addReg = () => {
               <el-radio-button label="mini">迷你</el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if="activeData['show-word-limit'] !== undefined" label="输入统计">
+          <!-- <el-form-item v-if="activeData['show-word-limit'] !== undefined" label="输入统计">
             <el-switch v-model="activeData['show-word-limit']" />
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item v-if="activeData.__config__.tag === 'el-input-number'" label="严格步数">
             <el-switch v-model="activeData['step-strictly']" />
           </el-form-item>
@@ -661,13 +661,13 @@ const addReg = () => {
               <span slot-scope="{ node, data }:any">
                 <span class="node-label">
                   <!-- <svg-icon class="node-icon" :icon-class="data.__config__ ? data.__config__.tagIcon : data.tagIcon" />
-                  {{ node.label }} -->
+                  {{ node.label }}-->
                 </span>
               </span>
             </el-tree>
           </template>
 
-          <template v-if="Array.isArray(activeData.__config__.regList)">
+          <!-- <template v-if="Array.isArray(activeData.__config__.regList)">
             <el-divider>正则校验</el-divider>
             <div v-for="(item, index) in activeData.__config__.regList" :key="index" class="reg-item">
               <span class="close-btn" @click="activeData.__config__.regList.splice(index, 1)">
@@ -683,7 +683,7 @@ const addReg = () => {
             <div style="margin-left: 20px">
               <el-button icon="el-icon-circle-plus-outline" type="text" @click="addReg">添加规则</el-button>
             </div>
-          </template>
+          </template> -->
         </el-form>
         <!-- 表单属性 -->
         <el-form v-show="currentTab === 'form'" size="small" label-width="90px">

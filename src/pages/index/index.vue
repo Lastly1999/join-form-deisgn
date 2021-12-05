@@ -134,10 +134,12 @@ const generateConf = ref<any>(null)
 
 const formData = ref({})
 
+const formConfig = ref(formConf)
+
 const AssembleFormData = () => {
   formData.value = {
     fields: deepClone(drawingList),
-    ...formConf
+    ...formConfig.value
   }
 }
 
@@ -201,7 +203,7 @@ const generateCode = () => {
         <el-button class="delete-btn" icon="el-icon-delete" type="text" @click="empty">清空</el-button>-->
       </div>
       <el-scrollbar class="center-scrollbar">
-        <el-form :label-position="formConf.labelPosition" :disabled="formConf.disabled" :label-width="formConf.labelWidth + 'px'">
+        <el-form :label-position="formConfig.labelPosition" :size="formConfig.size" :gutter="formConfig.gutter" :disabled="formConfig.disabled" :label-width="formConfig.labelWidth + 'px'">
           <Draggable class="drawing-board" :list="drawingList" :animation="340" group="componentsGroup" item-key="index">
             <!-- 渲染器 -->
             <FormBuilder :options="drawingList" @currentItem="activeFormItem" />
@@ -211,7 +213,7 @@ const generateCode = () => {
       </el-scrollbar>
     </div>
     <!-- 左侧设置编辑区域 -->
-    <RightPanel :active-data="activeData" :form-conf="formConf" :show-field="!!drawingList.length"></RightPanel>
+    <RightPanel :active-data="activeData" :form-conf="formConfig" :show-field="!!drawingList.length"></RightPanel>
   </div>
 </template>
 
