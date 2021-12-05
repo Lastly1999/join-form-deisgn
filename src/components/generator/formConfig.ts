@@ -64,6 +64,7 @@ export const inputComponents = [
       document: 'https://element.eleme.cn/#/zh-CN/component/input'
     },
     type: 'textarea',
+    __vModel__: "defaultTextarea",
     placeholder: '请输入',
     autosize: {
       minRows: 4,
@@ -94,6 +95,7 @@ export const inputComponents = [
       prepend: '',
       append: ''
     },
+    __vModel__: "defaultPassWord",
     placeholder: '请输入',
     'show-password': true,
     style: { width: '100%' },
@@ -120,6 +122,7 @@ export const inputComponents = [
       regList: [],
       document: 'https://element.eleme.cn/#/zh-CN/component/input-number'
     },
+    __vModel__: "defaultInputNum",
     placeholder: '',
     min: undefined,
     max: undefined,
@@ -129,25 +132,25 @@ export const inputComponents = [
     'controls-position': '',
     disabled: false
   },
-  {
-    __config__: {
-      label: '编辑器',
-      showLabel: true,
-      changeTag: true,
-      labelWidth: null,
-      tag: 'tinymce',
-      tagIcon: 'rich-text',
-      defaultValue: null,
-      span: 24,
-      layout: 'colFormItem',
-      required: true,
-      regList: [],
-      document: 'http://tinymce.ax-z.cn'
-    },
-    placeholder: '请输入',
-    height: 300, // 编辑器高度
-    branding: false // 隐藏右下角品牌烙印
-  }
+  // {
+  //   __config__: {
+  //     label: '编辑器',
+  //     showLabel: true,
+  //     changeTag: true,
+  //     labelWidth: null,
+  //     tag: 'tinymce',
+  //     tagIcon: 'rich-text',
+  //     defaultValue: null,
+  //     span: 24,
+  //     layout: 'colFormItem',
+  //     required: true,
+  //     regList: [],
+  //     document: 'http://tinymce.ax-z.cn'
+  //   },
+  //   placeholder: '请输入',
+  //   height: 300, // 编辑器高度
+  //   branding: false // 隐藏右下角品牌烙印
+  // }
 ]
 
 // 选择型组件 【左面板】
@@ -166,6 +169,7 @@ export const selectComponents = [
       changeTag: true,
       document: 'https://element.eleme.cn/#/zh-CN/component/select'
     },
+    __vModel__: "defaultSelect",
     __slot__: {
       options: [{
         label: '选项一',

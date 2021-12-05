@@ -9,6 +9,7 @@ import { isNumberStr } from '../../../utils/index'
 import {
   inputComponents, selectComponents
 } from '../../../components/generator/formConfig'
+import { Delete } from "@element-plus/icons"
 
 const props = defineProps(['activeData', 'showField', 'formConf'])
 
@@ -291,16 +292,16 @@ const addReg = () => {
       <el-scrollbar class="right-scrollbar">
         <!-- 组件属性 -->
         <el-form v-if="showField" v-show="currentTab === 'field' && showField" size="small" label-width="90px">
-          <el-form-item v-if="activeData.__config__.changeTag" label="组件类型">
+          <!-- <el-form-item v-if="activeData.__config__.changeTag" label="组件类型">
             <el-select v-model="activeData.__config__.tagIcon" placeholder="请选择组件类型" :style="{ width: '100%' }" @change="tagChange">
               <el-option-group v-for="group in tagList" :key="group.label" :label="group.label">
                 <el-option v-for="item in group.options" :key="item.__config__.label" :label="item.__config__.label" :value="item.__config__.tagIcon">
-                  <!-- <svg-icon class="node-icon" :icon-class="item.__config__.tagIcon" /> -->
+                  <svg-icon class="node-icon" :icon-class="item.__config__.tagIcon" />
                   <span>{{ item.__config__.label }}</span>
                 </el-option>
               </el-option-group>
             </el-select>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item v-if="activeData.__vModel__ !== undefined" label="字段名">
             <el-input v-model="activeData.__vModel__" placeholder="请输入字段名（v-model）" />
           </el-form-item>
@@ -411,7 +412,7 @@ const addReg = () => {
             <el-input v-model="activeData.maxlength" placeholder="请输入字符长度">
               <template slot="append">个字符</template>
             </el-input>
-          </el-form-item> -->
+          </el-form-item>-->
           <el-form-item v-if="activeData['active-text'] !== undefined" label="开启提示">
             <el-input v-model="activeData['active-text']" placeholder="请输入开启提示" />
           </el-form-item>
@@ -495,9 +496,12 @@ const addReg = () => {
                   <i class="el-icon-s-operation" />
                 </div>
                 <el-input v-model="item.label" placeholder="选项名" size="small" />
-                <el-input placeholder="选项值" size="small" :value="item.value" @input="setOptionValue(item, $event)" />
+                <el-input placeholder="选项值" size="small" v-model="item.value" @input="setOptionValue(item, $event)" />
                 <div class="close-btn select-line-icon" @click="activeData.__slot__.options.splice(index, 1)">
-                  <i class="el-icon-remove-outline" />
+                  <i class="el-icon-delete" />
+                  <el-icon>
+                    <Delete />
+                  </el-icon>
                 </div>
               </div>
             </draggable>
@@ -568,7 +572,7 @@ const addReg = () => {
           <!-- <el-form-item v-if="activeData.__config__.showLabel !== undefined
           && activeData.__config__.labelWidth !== undefined" label="显示标签">
             <el-switch v-model="activeData.__config__.showLabel" />
-          </el-form-item> -->
+          </el-form-item>-->
           <el-form-item v-if="activeData.branding !== undefined" label="品牌烙印">
             <el-switch v-model="activeData.branding" @input="changeRenderKey" />
           </el-form-item>
@@ -611,7 +615,7 @@ const addReg = () => {
           </el-form-item>
           <!-- <el-form-item v-if="activeData['show-word-limit'] !== undefined" label="输入统计">
             <el-switch v-model="activeData['show-word-limit']" />
-          </el-form-item> -->
+          </el-form-item>-->
           <el-form-item v-if="activeData.__config__.tag === 'el-input-number'" label="严格步数">
             <el-switch v-model="activeData['step-strictly']" />
           </el-form-item>
@@ -648,9 +652,9 @@ const addReg = () => {
           <el-form-item v-if="activeData.__config__.tag === 'el-select'" label="能否搜索">
             <el-switch v-model="activeData.filterable" />
           </el-form-item>
-          <el-form-item v-if="activeData.__config__.tag === 'el-select'" label="是否多选">
+          <!-- <el-form-item v-if="activeData.__config__.tag === 'el-select'" label="是否多选">
             <el-switch v-model="activeData.multiple" @change="multipleChange" />
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item v-if="activeData.__config__.required !== undefined" label="是否必填">
             <el-switch v-model="activeData.__config__.required" />
           </el-form-item>
@@ -683,7 +687,7 @@ const addReg = () => {
             <div style="margin-left: 20px">
               <el-button icon="el-icon-circle-plus-outline" type="text" @click="addReg">添加规则</el-button>
             </div>
-          </template> -->
+          </template>-->
         </el-form>
         <!-- 表单属性 -->
         <el-form v-show="currentTab === 'form'" size="small" label-width="90px">

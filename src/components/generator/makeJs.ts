@@ -26,7 +26,7 @@ export function makeUpJs(formConfig: { fields: any[] }, type: any) {
   const methodList = mixinMethod(type)
   const uploadVarList: any[] = []
   const created: any[] = []
-
+  console.log(formConfig)
   formConfig.fields.forEach((el: any) => {
     buildAttributes(el, dataList, ruleList, optionsList, methodList, propsList, uploadVarList, created)
   })
@@ -60,7 +60,7 @@ function buildAttributes(scheme: { [x: string]: any; __config__: any; __slot__: 
       const model = `${scheme.__vModel__}Options`
       const options = titleCase(model)
       const methodName = `get${options}`
-      buildOptionMethod(methodName, model, methodList, scheme)
+      // buildOptionMethod(methodName, model, methodList, scheme)
       callInCreated(methodName, created)
     }
   }
@@ -179,6 +179,7 @@ function buildOptions(scheme: { options?: any }, optionsList: string[]) {
   if (!options) options = (scheme as any).__slot__.options
   if ((scheme as any).__config__.dataType === 'dynamic') { options = [] }
   const str = `${(scheme as any).__vModel__}Options: ${JSON.stringify(options)},`
+  console.log(optionsList)
   optionsList.push(str)
 }
 
@@ -244,20 +245,24 @@ function buildexport(conf: { formRef: string, formModel: any; formRules: any }, 
   setup () {
 
     const ${conf.formRef} = ref(null)
-
+    \n
     const ${conf.formModel} = ref({
       ${data}
     })
-    
+    \n
     const ${conf.formRules} = ref({
       ${rules}
     })
-
+    \n
+    const ${selectOptions.split(':')[0]} = ref(
+      ${selectOptions.split('Options:')[1]}
+    )
+    \n
     return {
       ${conf.formRules},
       ${conf.formModel},
+      ${selectOptions.split(':')[0]},
       ${uploadVar}
-      ${selectOptions}
       ${props}
     }
   },
@@ -265,5 +270,6 @@ function buildexport(conf: { formRef: string, formModel: any; formRules: any }, 
     ${methods}
   }
 }`
+  console.log(selectOptions)
   return str
 }

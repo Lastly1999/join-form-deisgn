@@ -203,7 +203,7 @@ const generateCode = () => {
         <el-button class="delete-btn" icon="el-icon-delete" type="text" @click="empty">清空</el-button>-->
       </div>
       <el-scrollbar class="center-scrollbar">
-        <el-form :label-position="formConfig.labelPosition" :size="formConfig.size" :gutter="formConfig.gutter" :disabled="formConfig.disabled" :label-width="formConfig.labelWidth + 'px'">
+        <el-form :label-position="formConfig.labelPosition" :size="(formConfig as any).size" :gutter="formConfig.gutter" :disabled="formConfig.disabled" :label-width="formConfig.labelWidth + 'px'">
           <Draggable class="drawing-board" :list="drawingList" :animation="340" group="componentsGroup" item-key="index">
             <!-- 渲染器 -->
             <FormBuilder :options="drawingList" @currentItem="activeFormItem" />

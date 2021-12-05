@@ -8,15 +8,25 @@ export default defineComponent({
       default: {}
     }
   },
-  setup(props, _) {
+  setup(props, { emit }) {
+
+    const change = (val: number) => {
+      props.conf.__config__.defaultValue = val
+      emit('update:conf')
+    }
+
     return {
+      change,
       props
     }
   },
   render() {
     const { conf } = this.props
+    const { change } = this
+    const isDisabled = conf["disabled"]
+
     return (
-      <ElInputNumber modelValue={conf.defaultVal} placeholder={conf.placeholder} />
+      <ElInputNumber modelValue={conf.defaultVal} disabled={isDisabled} placeholder={conf.placeholder} onChange={change} />
     )
   }
 })

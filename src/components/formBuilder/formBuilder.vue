@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import ElInput from "./comp/el-input"
-import ElInputNumber from "./comp/el-input-number"
+import ElInputNum from "./comp/el-input-number"
+import ElSelect from "./comp/el-select"
 
 defineProps({
   options: {
@@ -32,7 +33,8 @@ const currentItem = (item: any) => {
   >
     <el-col :span="item.__config__.span">
       <ElInput v-if="item.__config__.tag === 'el-input'" :conf="item" />
-      <ElInputNumber v-if="item.__config__.tag === 'el-input-number'" :modelValue="item.__config__.defaultValue" :conf="item" />
+      <ElInputNum v-if="item.__config__.tag === 'el-input-number'" :conf="item" />
+      <ElSelect v-if="item.__config__.tag === 'el-select'" :conf="item" />
     </el-col>
   </el-form-item>
 </template>
