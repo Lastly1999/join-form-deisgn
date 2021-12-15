@@ -23,7 +23,7 @@ import { makeUpCss } from '../../components/generator/makeCss'
 import loadBeautifier from '../../utils/loadBeautifier'
 
 // 供拉拽生成的组件
-import { inputComponents, selectComponents, layoutComponents, formConf } from "../../components/generator/formConfig"
+import { inputComponents, selectComponents, formConf } from "../../components/generator/formConfig"
 
 // 默认值
 // import darwDefault from "../../components/generator/darwDefault"
@@ -44,9 +44,9 @@ const leftComponents = [
   // }
 ]
 
-const drawingList: any = reactive([])
+const drawingList: any[] = reactive([])
 
-const activeId = ref(([]))
+const activeId = ref('')
 
 const activeData = ref([])
 
@@ -60,12 +60,15 @@ const onEnd = (obj: any) => {
 const cloneComponent = (data: any) => {
   activeData.value = data
   const copyData = deepClone(data)
+  createIdAndKey(copyData)
   return copyData
 }
 
 const activeFormItem = (currentItem: any) => {
   activeData.value = currentItem
+  console.log(currentItem)
   activeId.value = currentItem.__config__.formId
+  console.log(activeId.value)
   console.log(currentItem)
 }
 
@@ -78,9 +81,10 @@ const drawingItemCopy = (item: any, list: any) => {
 
 const saveIdGlobalDebounce = debounce(340, saveIdGlobal)
 
-watch(() => idGlobal, val => {
+watch(() => activeId.value, val => {
+  console.log(val)
   saveIdGlobalDebounce(val)
-}, { immediate: true })
+}, { deep: true })
 
 /**
  * 创建formId 并强制更新组件
@@ -206,7 +210,7 @@ const generateCode = () => {
         <el-form :label-position="formConfig.labelPosition" :size="(formConfig as any).size" :gutter="formConfig.gutter" :disabled="formConfig.disabled" :label-width="formConfig.labelWidth + 'px'">
           <Draggable class="drawing-board" :list="drawingList" :animation="340" group="componentsGroup" item-key="index">
             <!-- 渲染器 -->
-            <FormBuilder :options="drawingList" @currentItem="activeFormItem" />
+            <FormBuilder :options="drawingList" :formId="formConfig" :activeId="activeId" @currentItem="activeFormItem" />
           </Draggable>
           <div v-if="drawingList.length == 0" class="empty-info">从左侧拖入或点选组件进行表单设计</div>
         </el-form>

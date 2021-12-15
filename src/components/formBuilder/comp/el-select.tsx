@@ -45,11 +45,7 @@ const Select = defineComponent({
       >
         {
           conf.__slot__.options && conf.__slot__.options.map((item: SelectItemOptions) => {
-            return <ElOption
-              key={item.value}
-              label={item.label}
-              value={item.value}
-            />
+            return <ElOption key={item.value} label={item.label} value={item.value} />
           })
         }
       </ElSelect>

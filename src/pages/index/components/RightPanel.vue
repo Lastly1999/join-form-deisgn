@@ -670,7 +670,6 @@ const addReg = () => {
               </span>
             </el-tree>
           </template>
-
           <!-- <template v-if="Array.isArray(activeData.__config__.regList)">
             <el-divider>正则校验</el-divider>
             <div v-for="(item, index) in activeData.__config__.regList" :key="index" class="reg-item">
@@ -732,7 +731,6 @@ const addReg = () => {
         </el-form>
       </el-scrollbar>
     </div>
-
     <!-- <treeNode-dialog :visible.sync="dialogVisible" title="添加选项" @commit="addNode" />
     <icons-dialog :visible.sync="iconsVisible" :current="activeData[currentIconModel]" @select="setIcon" />-->
   </div>
